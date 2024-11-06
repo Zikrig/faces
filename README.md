@@ -31,12 +31,12 @@
 
 ## API Команды ##
 
-### PUT /task/{{task_id}}/add_task
+### PUT /task/{task_id}/add_task
 *Добавляет в базу данных новое задание и возвращает его статистику*
 Запрос:  
-*Нет тела запроса*
+*Нет тела запроса*  
 Авторизация:  
-*Basic*
+*Basic*  
 Ответ:  
 *Json соответствующей схемы*
 ```
@@ -50,7 +50,7 @@
 }
 ```
 
-### PUT /task/{{task_id}}/add_image
+### PUT /task/{task_id}/add_image
 *Добавляет изображение в задание с указанным task_id и обновляет статистику.*  
 Параметры запроса:  
 *file_location: Путь к изображению относительно папки faces.*  
@@ -65,7 +65,7 @@
 }
 ```
 
-### GET /task/{{task_id2}}/get
+### GET /task/{task_id2}/get
 *Получает информацию о задании, включая названия, рамки лиц и статистику.*  
 Запрос:  
 *Нет тела запроса*  
@@ -75,43 +75,132 @@
 *Json соответствующей схемы*  
 ```
 {
-    "task_id": 7,
+    "task_id": 8,
     "images": [
         {
-            "image_id": 8,
+            "image_id": 10,
             "name": "me",
             "faces": [
                 {
-                    "face_id": 10,
+                    "face_id": 14,
                     "bounding_box": {
-                        "x": 245,
-                        "y": 107,
-                        "w": 213,
-                        "h": 301
+                        "x": 303,
+                        "y": 456,
+                        "w": 264,
+                        "h": 357
                     },
                     "gender": "male",
-                    "age": 30
-                },
+                    "age": 24
+                }
+            ]
+        },
+        {
+            "image_id": 11,
+            "name": "y",
+            "faces": [
                 {
-                    "face_id": 11,
+                    "face_id": 15,
                     "bounding_box": {
-                        "x": 418,
-                        "y": 243,
-                        "w": 188,
-                        "h": 294
+                        "x": 106,
+                        "y": 20,
+                        "w": 125,
+                        "h": 177
                     },
                     "gender": "female",
-                    "age": 29
+                    "age": 42
+                }
+            ]
+        },
+        {
+            "image_id": 12,
+            "name": "y",
+            "faces": [
+                {
+                    "face_id": 16,
+                    "bounding_box": {
+                        "x": 1229,
+                        "y": 158,
+                        "w": 235,
+                        "h": 291
+                    },
+                    "gender": "male",
+                    "age": 23
+                },
+                {
+                    "face_id": 17,
+                    "bounding_box": {
+                        "x": 437,
+                        "y": 149,
+                        "w": 217,
+                        "h": 280
+                    },
+                    "gender": "female",
+                    "age": 17
+                },
+                {
+                    "face_id": 18,
+                    "bounding_box": {
+                        "x": 1611,
+                        "y": 253,
+                        "w": 184,
+                        "h": 250
+                    },
+                    "gender": "male",
+                    "age": 17
+                },
+                {
+                    "face_id": 19,
+                    "bounding_box": {
+                        "x": 963,
+                        "y": 237,
+                        "w": 183,
+                        "h": 241
+                    },
+                    "gender": "male",
+                    "age": 21
+                },
+                {
+                    "face_id": 20,
+                    "bounding_box": {
+                        "x": 217,
+                        "y": 335,
+                        "w": 115,
+                        "h": 167
+                    },
+                    "gender": "female",
+                    "age": 11
+                },
+                {
+                    "face_id": 21,
+                    "bounding_box": {
+                        "x": 1455,
+                        "y": 341,
+                        "w": 121,
+                        "h": 145
+                    },
+                    "gender": "male",
+                    "age": 44
+                },
+                {
+                    "face_id": 22,
+                    "bounding_box": {
+                        "x": 0,
+                        "y": 320,
+                        "w": 65,
+                        "h": 146
+                    },
+                    "gender": "female",
+                    "age": 12
                 }
             ]
         }
     ],
     "stat": {
-        "faces_count": 2,
-        "male_count": 1,
-        "female_count": 1,
-        "male_ages": 30.0,
-        "female_ages": 29.0
+        "faces_count": 9,
+        "male_count": 5,
+        "female_count": 4,
+        "male_ages": 25.8,
+        "female_ages": 20.5
     }
 }
 ```
@@ -147,7 +236,7 @@ DATABASE_URL_LOCAL=postgresql://${POSTGRES_DB}:${POSTGRES_PASSWORD}@${POSTGRES_H
 FACE_CLOUD_SITE=https://backend.facecloud.tevian.ru/  
 
 # Нужны только для выпуска нового токена (через файл gen_token.py)  
-FACE_CLOUD_LOGIN=mamda@grate.ru  
+FACE_CLOUD_LOGIN=ma@grate.ru  
 FACE_CLOUD_PASSWORD=password  
 ```
 

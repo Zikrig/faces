@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Float, Text
+from sqlalchemy import Column, Integer, String, ForeignKey, Float
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -25,17 +25,14 @@ class Image(Base):
     name = Column(String, default='')
     male_count = Column(Integer, default=0)
     female_count = Column(Integer, default=0)
-    male_ages = Column(Float, default=0.0)  # Средний возраст мужчин
-    female_ages = Column(Float, default=0.0)  # Средний возраст женщин
+    male_ages = Column(Float, default=0.0)
+    female_ages = Column(Float, default=0.0)
     
     task = relationship("Task", back_populates="images")
     faces = relationship("Face", back_populates="image")
 
-
-
 class Face(Base):
     __tablename__ = "faces"
-    
     id = Column(Integer, primary_key=True, index=True)
     h = Column(Integer)
     w = Column(Integer)

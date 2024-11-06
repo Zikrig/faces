@@ -25,6 +25,7 @@ models.Base.metadata.create_all(bind=database.engine)
 
 security = HTTPBasic()
 
+# Проверка basic auth
 def authenticate(credentials: HTTPBasicCredentials = Depends(security)):
     correct_username = BASIC_AUTH_USERNAME
     correct_password = BASIC_AUTH_PASSWORD
@@ -37,9 +38,9 @@ def authenticate(credentials: HTTPBasicCredentials = Depends(security)):
         )
 
 
+# Добавление новой задачи
 @app.put("/task/add_task/", response_model=schemas.Task,)
 def create_task(
-    # task: schemas.TaskCreate, 
     db: Session = Depends(database.get_db),
     credentials: HTTPBasicCredentials = Depends(authenticate)
     ):
@@ -49,7 +50,7 @@ def create_task(
     db.refresh(db_task)
     return db_task
 
-
+# Удаление задачи
 @app.delete("/task/{task_id}/delete_task/", response_model=None)
 def delete_task(
     task_id: int,
@@ -72,7 +73,7 @@ def delete_task(
 
     return {"message": f"Task {task_id} deleted successfully"}
 
-
+# Добавление изображения в задачу
 @app.put("/task/{task_id}/add_image")
 def add_image_to_task(task_id: int,
                     file_location: str,
@@ -125,7 +126,7 @@ def add_image_to_task(task_id: int,
 
     return {"message": "Image and faces added successfully"}
     
-
+# Получение задачи со всеми данными
 @app.get("/task/{task_id}/get")
 def get_task_with_details(
     task_id: int,
@@ -177,7 +178,7 @@ def get_task_with_details(
     
     return task_details
 
-
+# Обновление статистики
 def calculate_and_update_task_statistics(
         task_id: int,
         db: Session
@@ -205,14 +206,12 @@ def calculate_and_update_task_statistics(
     average_male_age = total_male_age / male_count if male_count > 0 else 0
     average_female_age = total_female_age / female_count if female_count > 0 else 0
 
-    # Обновляем статистику в задаче
     task.faces_count = total_faces
     task.male_count = male_count
     task.female_count = female_count
     task.male_ages = average_male_age
     task.female_ages = average_female_age
 
-    # Сохраняем изменения в базе данных
     db.commit()
 
     return task

@@ -3,7 +3,6 @@ version: '3.10'
 services:
   db:
     image: postgres:12
-    # environment
 
     env_file:
       - .env

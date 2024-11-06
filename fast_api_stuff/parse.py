@@ -4,6 +4,7 @@ from os import getenv
 
 load_dotenv()
 
+# Найти лица на изображении по пути
 def detect_faces(file_with_faces):
     site = getenv('FACE_CLOUD_SITE')
     token = getenv('TOKEN')
@@ -14,7 +15,6 @@ def detect_faces(file_with_faces):
         }
     
     with open(file_with_faces, 'rb') as file:
-        # Выполняем POST-запрос
         response = requests.post(
             f'{site}/api/v1/detect?demographics=true',
             headers=headers,
@@ -22,14 +22,14 @@ def detect_faces(file_with_faces):
         )
 
         try:
-            # Парсим JSON-ответ
             data = response.json()
             print(data)
             return data
-        except ValueError:  # Если не удаётся распарсить JSON
+        except ValueError:
             print(response.text)
             return None
 
+# Распарсить ответ
 def faces_parse_unfold(data, name):
     code = data['status_code']
     if code != 200:
@@ -74,6 +74,7 @@ def faces_parse_unfold(data, name):
     
     return res, stat
 
+# Получение данных лица
 def unbox(item):
     if not 'bbox' in item or not 'demographics' in item:
         return {}

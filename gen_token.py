@@ -6,7 +6,7 @@ from fast_api_stuff.get_token import *
 # Должно содержать актуальный сервер API
 
 # Для демо-аккаунта сгодятся любые значения для регистрации
-# FACE_CLOUD_LOGIN=mamda@grate.ru
+# FACE_CLOUD_LOGIN=mam@grate.ru
 # FACE_CLOUD_PASSWORD=password
 
 # Создание нового аккаунта

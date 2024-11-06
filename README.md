@@ -65,7 +65,8 @@ Basic
 Ответ:
 Json соответствующей схемы
 
-```{
+```
+{
     "task_id": 7,
     "images": [
         {
@@ -104,7 +105,8 @@ Json соответствующей схемы
         "male_ages": 30.0,
         "female_ages": 29.0
     }
-}```
+}
+```
 
 
 3. DELETE /tasks/{task_id}/delete_task
@@ -116,9 +118,11 @@ Basic
 
 Ответ:
 Json соответствующей схемы
-```{
+```
+{
 "message": "Task 7 deleted successfully"
-}```
+}
+```
 
 4. PUT /task/{{task_id}}/add_image
 Описание: 
@@ -131,6 +135,8 @@ Basic
 
 Ответ:
 Json соответствующей схемы
-```{
+```
+{
     "message": "Image and faces added successfully"
-}```
+}
+```

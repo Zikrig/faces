@@ -1,6 +1,5 @@
-Добро пожаловать!
-Это демонстрационный проект сервиса с REST API на основе HTTP с передачей данных в формате
-JSON. Он позволяет вести каталог bounding-box'ов лиц.
+*Добро пожаловать!*
+*Это демонстрационный проект сервиса с REST API на основе HTTP с передачей данных в форматеJSON. Он позволяет вести каталог bounding-box'ов лиц.*
 
 ## Получение токена ##
 Убедитесь, что у вас есть рабочий токен для работы с API Facecloud (если он есть, переходите к следующему шагу).
@@ -32,14 +31,14 @@ JSON. Он позволяет вести каталог bounding-box'ов лиц
 
 ## API Команды ##
 
-1. PUT /task/{{task_id}}/add_task/  
-Добавляет в базу данных новое задание и возвращает его статистику  
+### PUT /task/{{task_id}}/add_task/
+*Добавляет в базу данных новое задание и возвращает его статистику  *
 Запрос:  
-Нет тела запроса  
+*Нет тела запроса  *
 Авторизация:  
-Basic  
+*Basic  *
 Ответ:  
-Json соответствующей схемы
+*Json соответствующей схемы*
 ```
 {
     "id": 7,
@@ -51,15 +50,14 @@ Json соответствующей схемы
 }
 ```
 
-2. GET /task/{{task_id2}}/get  
-Получает информацию о задании, включая названия, рамки лиц и статистику.  
+### GET /task/{{task_id2}}/get
+*Получает информацию о задании, включая названия, рамки лиц и статистику.  *
 Запрос:  
-Нет тела запроса  
+*Нет тела запроса * 
 Авторизация:  
-Basic  
+*Basic  *
 Ответ:  
-Json соответствующей схемы  
-
+*Json соответствующей схемы  *
 ```
 {
     "task_id": 7,
@@ -104,29 +102,72 @@ Json соответствующей схемы
 ```
 
 
-3. DELETE /tasks/{task_id}/delete_task  
-Удаляет задание с указанным task_id. Все связанные данные также удаляются.  
+### DELETE /tasks/{task_id}/delete_task
+*Удаляет задание с указанным task_id. Все связанные данные также удаляются. * 
 Авторизация:  
-Basic  
+*Basic  *
 Ответ:  
-Json соответствующей схемы
+*Json соответствующей схемы*
 ```
 {
 "message": "Task 7 deleted successfully"
 }
 ```
 
-4. PUT /task/{{task_id}}/add_image  
-Добавляет изображение в задание с указанным task_id и обновляет статистику.  
+### PUT /task/{{task_id}}/add_image
+*Добавляет изображение в задание с указанным task_id и обновляет статистику.  *
 Параметры запроса:  
-file_location: Путь к изображению относительно папки faces.  
-name: Название нового изображения в каталоге  
+*file_location: Путь к изображению относительно папки faces.  *
+*name: Название нового изображения в каталоге  *
 Авторизация:  
-Basic  
+*Basic  *
 Ответ:  
-Json соответствующей схемы
+*Json соответствующей схемы*
 ```
 {
     "message": "Image and faces added successfully"
 }
 ```
+## Настройки ##
+Все настройки расположены в файле .env и откомментированны дополнительно.
+
+#### Данные для подключения к Postgres
+```
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=12345
+POSTGRES_DB=postgres
+POSTGRES_HOST=localhost
+DATABASE_URL_DOCKER=postgresql://${POSTGRES_DB}:${POSTGRES_PASSWORD}@db/${POSTGRES_DB}
+DATABASE_URL_LOCAL=postgresql://${POSTGRES_DB}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}/${POSTGRES_DB}
+```
+#### Логин-пароль для API Facecloud (тестовые)
+```
+# Нужна для обозначения API-сервера
+FACE_CLOUD_SITE=https://backend.facecloud.tevian.ru/  
+
+# Нужны только для выпуска нового токена (через файл gen_token.py)  
+FACE_CLOUD_LOGIN=mamda@grate.ru  
+FACE_CLOUD_PASSWORD=password  
+```
+
+### Токен для Facecloud. 
+```
+# Перед началом работы выпустите свежий токен замените им старый в настройках
+TOKEN=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MzA1Njk3MzYsIm5iZiI6MTczMDU2OTczNiwianRpIjoiYzUzZjlmOTgtYTI5Yy00ZmExLTliODgtMGQzYWY1ZDJkMzBjIiwic3ViIjo0OTQsImZyZXNoIjpmYWxzZSwidHlwZSI6ImFjY2VzcyJ9.U-W_Qr7FkTAWvUhdorFTb-xwF1Wl7GhXiV7YpHzKDh8
+```
+
+### HTTP Basic Auth. Используется для авторизации в нашем апи.
+```
+# Используется внутри этого проекта для basic аутентификации, может быть легко заменен.
+BASIC_AUTH_USERNAME=faces
+BASIC_AUTH_PASSWORD=faces_password
+```
+### Переменная которую не нужно менять
+Последняя строка `ENVIRONMENT=local` не должна быть изменена, чтобы программа смогла определить, запускают ее через докер или нет.
+
+## В заключение ##
+В проекте отражены все требования из ТЗ, включая:
+*Использование всех необходимых технологий, в том числе FastApi, Facecloud, Postgresql и SqlAlchemy*
+*Предоставлен Dockerfile, позволяющий собрать контейнер с сервисом.*
+*Предоставлен docker-compose.yml, позволяющий запустить сервис и PostgreSQL.*
+*Доступ к API защищен с помощью HTTP Basic Auth*

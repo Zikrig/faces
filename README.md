@@ -251,4 +251,4 @@ BASIC_AUTH_PASSWORD=faces_password
 - *Использование всех необходимых технологий, в том числе FastApi, Facecloud, Postgresql и SqlAlchemy*  
 - *Предоставлен Dockerfile, позволяющий собрать контейнер с сервисом.*  
 - *Предоставлен docker-compose.yml, позволяющий запустить сервис и PostgreSQL.*  
-- *Доступ к API защищен с помощью HTTP Basic Auth*  
+- *Доступ к API защищен с помощью HTTP Basic Auth.*  
